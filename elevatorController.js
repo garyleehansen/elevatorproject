@@ -25,7 +25,16 @@ elevatorController.prototype.manageElevators = function(start, end) {
 }
 
 elevatorController.prototype.requestElevator = function(request) {
-    
+    var selectedElevator = this.selectElevator(request);
+    if (selectedElevator != null) {
+        selectedElevator.travel(request);
+    }
+}
+
+elevatorController.prototype.selectElevator = function(request) {
+    // if the elevator is currently on the floor return the first as the selectedElevator as long as not in maintenance.
+    // if any occupied elevator will pass the room return the first as the selectedElevator as long as not in maintenance.
+    // otherwise return the closest non-occupied room not in mainenance
 }
 
 elevatorController.prototype.requestElevator = function(start, end) {

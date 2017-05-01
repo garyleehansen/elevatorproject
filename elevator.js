@@ -4,9 +4,10 @@
 function elevator(number, floors) {
     this.number = number;
     this.floors = floors;
-    this.passengers = 0;
+    this.requests = [];
     this.passedFloors = 0;
     this.trips = 0;
+    this.up = 0;
     this.currentFloor = 1;
 }
 
@@ -15,7 +16,7 @@ elevator.prototype.inMainenance = function() {
 } 
 
 elevator.prototype.reportFloor = function() {
-    console.log('Elevator ' + this.number + (this.passengers > 0) ? '(occupied)' : '' + 'at floor: ' + this.currentFloor);
+    console.log('Elevator ' + this.number + (this.requests.length > 0) ? '(occupied)' : '' + 'at floor: ' + this.currentFloor);
 } 
 
 elevator.prototype.reportDoorOpen = function() {
@@ -47,13 +48,40 @@ elevator.prototype.move = function(target) {
     }
 }
 
-elevator.prototype.summon = function(start) {
-    this.move(start);
+elevator.prototype.move = function() {
+
+    if (true /*check upper and lower bounds*/) {
+        this.reportFloor();
+
+        var on = this.requestStarting();
+        var off = this.requestCompleted();
+        if (on || off.length > 0) {
+            this.reportDoorOpen();
+            this.reportDoorClosed();
+        }
+
+        this.currentFloor = (this.up) ? this.currentFloor + 1 : this.currentFloor - 1;
+        // delay to simulate.
+        if (this.requests > 0) {
+            this.move();
+        }
+    }
 }
 
-elevator.prototype.travel = function(start) {
-    this.passengers++;
-    this.move(end);
+
+
+elevator.prototype.requestStarting = function() {
+    // return true if request start on the current floor
+}
+
+elevator.prototype.requestCompleted = function() {
+    // collect, remove (from this.requests) and return a list those requests that end on this floor.
+}
+
+elevator.prototype.travel = function(request, up) {
+    this.requests.push(request);
+    this.up = up;
+    this.move();
 }
 
  
