@@ -1,9 +1,8 @@
 
 
 
-function elevator() {
-
-
+function elevator(floors) {
+    this.floors = floors;
 }
 
 
