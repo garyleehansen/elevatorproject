@@ -12,6 +12,22 @@ function elevatorController(count, floors) {
     }
 }
 
+elevatorController.prototype.manageElevators = function(start, end) {
+
+    while (true) {
+        var request = this.requests.shift();
+        if (request != null) {
+            this.requestElevator(request)
+        }
+    }
+
+
+}
+
+elevatorController.prototype.requestElevator = function(request) {
+    
+}
+
 elevatorController.prototype.requestElevator = function(start, end) {
     start = (start < 1) ? 1 : start;
     start = (start > this.floors) ? this.floors : start;
